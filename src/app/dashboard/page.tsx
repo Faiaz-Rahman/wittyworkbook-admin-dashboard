@@ -102,7 +102,7 @@ export default function Page() {
               </Card>
               <Card className="col-span-2 lg:col-span-3">
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>Joined Recently</CardTitle>
                   <CardDescription>You made 265 sales this month.</CardDescription>
                 </CardHeader>
                 <CardContent>
