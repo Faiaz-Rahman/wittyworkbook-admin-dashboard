@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import initials from "initials";
-import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
+import { DollarSign, Users, CreditCard, Activity, Loader } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
@@ -13,9 +13,28 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { salesData, overviewChartData } from "@/constants/dummy-data";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { FirebaseUserDataType, getRecentlyJoinedUsers } from "@/utils/serverActions/firebaseMethods";
 
 export default function Page() {
   const [selectedRange, setSelectedRange] = React.useState<DateRange | undefined>(undefined);
+  const { user: userStore } = useSelector((state: RootState) => state.auth);
+
+  const [userFromFb, setUsersFromFb] = useState<Array<FirebaseUserDataType>>([]);
+
+  const getRecentUsers = async () => {
+    const users = await getRecentlyJoinedUsers();
+
+    if (users.length) {
+      setUsersFromFb(users);
+    }
+  };
+
+  React.useEffect(() => {
+    getRecentUsers();
+  }, []);
+
   return (
     <div className="flex-col md:flex">
       <div className="flex-1 space-y-4">
@@ -106,8 +125,8 @@ export default function Page() {
                   <CardDescription>You made 265 sales this month.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-8">
-                    {salesData.map((sale) => (
+                  <div className="space-y-8 flex flex-col">
+                    {/* {salesData.map((sale) => (
                       <div key={sale.name} className="flex items-center">
                         <Avatar className="size-9">
                           <AvatarFallback>{initials(sale.name)}</AvatarFallback>
@@ -118,7 +137,37 @@ export default function Page() {
                         </div>
                         <div className="ml-auto font-medium">{sale.amount}</div>
                       </div>
-                    ))}
+                    ))} */}
+                    {userFromFb.length == 0 ? (
+                      <div
+                        className="flex items-center justify-center
+                        h-full w-full gap-2"
+                      >
+                        <Loader className="rotate-360 animate-spin" />
+                        Loading
+                      </div>
+                    ) : (
+                      userFromFb.map((fbUsers, ind) => {
+                        if (ind <= 4) {
+                          return (
+                            <div key={`fbUser${ind}`} className="flex items-center">
+                              <Avatar className="size-9">
+                                <AvatarFallback>
+                                  {initials(fbUsers.displayName ? fbUsers.displayName : "New User")}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="ml-4 space-y-1">
+                                <p className="text-sm font-medium leading-none">
+                                  {fbUsers.displayName ? fbUsers.displayName : "New User"}
+                                </p>
+                                <p className="text-xs text-muted-foreground md:text-sm">{fbUsers.email}</p>
+                              </div>
+                              <div className="ml-auto font-medium">$9.99</div>
+                            </div>
+                          );
+                        }
+                      })
+                    )}
                   </div>
                 </CardContent>
               </Card>

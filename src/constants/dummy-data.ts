@@ -76,3 +76,12 @@ export const overviewChartData = [
     total: Math.floor(Math.random() * 5000) + 1000,
   },
 ];
+
+export const imageAsssetCollection: string[] = [
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/addition/graphics-upto10-preview.png",
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/patterns/repeating-circle-preview.png",
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/counting/read-write-1to25-preview.png",
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/measurement/long-short-ordering-preview.png",
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/time/telling-hourly-increment-preview.png",
+  "https://www.mathworksheets4kids.com/worksheets/1st-grade/geometry/2d-shapes-mcq-preview.png",
+];
