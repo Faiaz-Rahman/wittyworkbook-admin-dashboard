@@ -8,6 +8,6 @@ export default function Home() {
   const router = useRouter();
 
   // redirect("/dashboard");
-  router.push("/login");
+  router.push("/auth/login");
   return <>Coming Soon</>;
 }
