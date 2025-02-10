@@ -12,6 +12,7 @@ import { Providers } from "@/lib/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 import Script from "next/script";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Admin | WittyWorkbooks",
@@ -21,7 +22,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
+        {/* google analytics */}
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID}`}
@@ -36,7 +38,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             });
           `}
         </Script>
-      </head>
+
+        {/* Google adsense */}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.CA_PUBLISHER_ID}`}
+          crossOrigin="anonymous"
+        ></Script>
+      </Head>
       <body className={`${inter.className} min-h-screen`}>
         <Providers>
           <ToastProvider>
