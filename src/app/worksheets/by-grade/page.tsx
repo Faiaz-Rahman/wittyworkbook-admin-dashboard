@@ -1,5 +1,9 @@
-import React from "react";
+"use server";
 
-export default function ByGradeSheets() {
-  return <div>By grade</div>;
-}
+import ByGradeSheets from "./page.client";
+
+const ByGradeServerComponent = () => {
+  return <ByGradeSheets />;
+};
+
+export default ByGradeServerComponent;
