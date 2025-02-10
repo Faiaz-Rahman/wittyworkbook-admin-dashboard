@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 
+import initials from "initials";
+import { signOut } from "firebase/auth";
+import { auth } from "@/utils/firebase";
+import { persistor, RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
 export default function SidebarFooterMenu({
   user,
 }: {
@@ -25,6 +32,22 @@ export default function SidebarFooterMenu({
   };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
+
+  const { user: userStore } = useSelector((state: RootState) => state.auth);
+
+  const onClickLogout = async () => {
+    try {
+      await signOut(auth);
+
+      await persistor.purge();
+      router.push("/auth/login");
+
+      console.log("the data from store =>", userStore);
+    } catch (error) {
+      console.log("error while logging out =>", error);
+    }
+  };
 
   return (
     <SidebarMenu>
@@ -37,7 +60,7 @@ export default function SidebarFooterMenu({
             >
               <Avatar className="size-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">{initials(user.name)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -56,7 +79,7 @@ export default function SidebarFooterMenu({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="size-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">{initials(user.name)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
@@ -64,14 +87,14 @@ export default function SidebarFooterMenu({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
@@ -87,7 +110,11 @@ export default function SidebarFooterMenu({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                onClickLogout();
+              }}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>

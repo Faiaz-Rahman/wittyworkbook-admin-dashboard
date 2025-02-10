@@ -14,8 +14,10 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { NavGroup } from "@/navigation/sidebar/sidebar-items";
+import { useRouter } from "next/navigation";
 
 export default function SidebarNavigation({ sidebarItems }: { readonly sidebarItems: NavGroup[] }) {
+  const router = useRouter();
   return (
     <>
       {sidebarItems.map((navGroup) => (
@@ -26,7 +28,12 @@ export default function SidebarNavigation({ sidebarItems }: { readonly sidebarIt
               <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title}>
+                    <SidebarMenuButton
+                      tooltip={item.title}
+                      onClick={() => {
+                        router.push(item.path);
+                      }}
+                    >
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
                       {item.subItems && (
