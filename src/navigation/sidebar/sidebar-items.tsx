@@ -1,4 +1,4 @@
-import { File, Inbox, Send, Receipt, KeySquare, LucideIcon, PanelsTopLeft } from "lucide-react";
+import { File, Inbox, Send, Receipt, KeySquare, LucideIcon, PanelsTopLeft, StickyNote } from "lucide-react";
 
 export interface NavSubItem {
   title: string;
@@ -19,7 +19,7 @@ export interface NavGroup {
   items: NavMainItem[];
 }
 
-const basePath = "/dashboard";
+const basePath = "";
 
 export const sidebarItems: NavGroup[] = [
   {
@@ -28,7 +28,7 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Dashboard",
-        path: basePath,
+        path: `/dashboard`,
         icon: PanelsTopLeft,
         isActive: true,
       },
@@ -44,14 +44,14 @@ export const sidebarItems: NavGroup[] = [
         icon: Inbox,
       },
       {
-        title: "Invoice",
+        title: "Worksheets",
         path: "#",
-        icon: Receipt,
+        icon: StickyNote,
         subItems: [
-          { title: "List", path: `${basePath}/invoice/list-preview` },
-          { title: "View", path: `${basePath}/invoice/view` },
-          { title: "Add", path: `${basePath}/invoice/add` },
-          { title: "Edit", path: `${basePath}/invoice/edit` },
+          { title: "All Sheets", path: `${basePath}/worksheets/all-sheets` },
+          { title: "By Grade", path: `${basePath}/worksheets/by-grade` },
+          { title: "New Sheet", path: `${basePath}/worksheets/new-sheet` },
+          // { title: "", path: `${basePath}/worksheets/` },
         ],
       },
       {
@@ -60,16 +60,16 @@ export const sidebarItems: NavGroup[] = [
         icon: KeySquare,
         subItems: [{ title: "Unauthorized", path: `${basePath}/auth/unauthorized` }],
       },
-      {
-        title: "Drafts",
-        path: `${basePath}/drafts`,
-        icon: File,
-      },
-      {
-        title: "Sent",
-        path: `${basePath}/sent`,
-        icon: Send,
-      },
+      // {
+      //   title: "Drafts",
+      //   path: `${basePath}/drafts`,
+      //   icon: File,
+      // },
+      // {
+      //   title: "Sent",
+      //   path: `${basePath}/sent`,
+      //   icon: Send,
+      // },
     ],
   },
   {
