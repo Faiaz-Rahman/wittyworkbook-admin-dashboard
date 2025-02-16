@@ -123,13 +123,13 @@ export default function NewSheetClient() {
   };
 
   const addTag = (__index: number) => {
-    if (tagInput.trim() && !tags.includes(tagInput)) {
-      setTags([...tags, tagInput.trim()]);
-      setTagInput("");
+    if (tagInput.trim() && !formik.values.formItems[__index].tags.includes(tagInput.trim())) {
       formik.setFieldValue(`formItems[${__index}].tags`, [
         ...(formik.values.formItems[__index].tags || []),
         tagInput.trim(),
       ]);
+
+      setTagInput("");
     }
   };
 
@@ -304,7 +304,7 @@ export default function NewSheetClient() {
               </div>
               {/* Display Tags */}
               <div className="flex flex-wrap gap-2 mt-5">
-                {form_item?.tags?.map((tag, index) => (
+                {formik.values?.formItems?.[form_ind]?.tags?.map((tag, index) => (
                   <div
                     key={index}
                     className="bg-yellow-400 px-5 h-10 flex 
