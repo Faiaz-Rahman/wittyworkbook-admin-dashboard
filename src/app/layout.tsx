@@ -40,11 +40,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Script>
 
         {/* Google adsense */}
-        <Script
+        {/* <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.CA_PUBLISHER_ID}`}
           crossOrigin="anonymous"
-        ></Script>
+        ></Script> */}
       </Head>
       <body className={`${inter.className} min-h-screen`}>
         <Providers>

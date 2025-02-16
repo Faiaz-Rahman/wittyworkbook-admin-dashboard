@@ -13,12 +13,27 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 
 interface ByGradeSheetsLayoutType {
   readonly children: ReactNode;
 }
 
-export default function ByGradeSheetsLayout({ children }: ByGradeSheetsLayoutType) {
+export default function WorksheetLayout({ children }: ByGradeSheetsLayoutType) {
+  const pathName = usePathname();
+  var breadcrumbString;
+
+  const pathNameSlice = pathName.split("/");
+  if (pathNameSlice[2] != "") {
+    const sliceBasedOnDash = pathNameSlice[2].split("-");
+
+    breadcrumbString = sliceBasedOnDash
+      .map((_item, _ind) => {
+        return _item.charAt(0).toUpperCase() + _item.slice(1);
+      })
+      .join(" ");
+  }
+
   return (
     <main>
       <SidebarProvider>
@@ -31,7 +46,7 @@ export default function ByGradeSheetsLayout({ children }: ByGradeSheetsLayoutTyp
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="/dashboard">By Grade</BreadcrumbLink>
+                    <BreadcrumbLink href="/dashboard">{breadcrumbString}</BreadcrumbLink>
                   </BreadcrumbItem>
                   {/* <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>

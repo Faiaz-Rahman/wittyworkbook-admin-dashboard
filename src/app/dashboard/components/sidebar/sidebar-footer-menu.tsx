@@ -16,11 +16,12 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 
 import initials from "initials";
-import { signOut } from "firebase/auth";
+
 import { auth } from "@/utils/firebase";
 import { persistor, RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
 
 export default function SidebarFooterMenu({
   user,
