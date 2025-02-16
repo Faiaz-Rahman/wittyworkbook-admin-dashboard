@@ -91,24 +91,33 @@ export default function NewSheetClient() {
     const data = await getDoc(docRef);
     if (!data.exists()) {
       await setDoc(docRef, {
-        title: form_item.title,
-        subtitle: form_item.subtitle,
-        gradeLevel: form_item.gradeLevel,
-        topicName: form_item.topicName,
-        isPaid: form_item.isPaid,
-        tags: form_item.tags,
-        publicUrl,
-        createdAt: serverTimestamp(),
+        worksheetData: [
+          {
+            title: form_item.title,
+            subtitle: form_item.subtitle,
+            gradeLevel: form_item.gradeLevel,
+            topicName: form_item.topicName,
+            isPaid: form_item.isPaid,
+            tags: form_item.tags,
+            publicUrl,
+            createdAt: new Date().toISOString(),
+          },
+        ],
       });
     } else {
       await updateDoc(docRef, {
-        title: form_item.title,
-        subtitle: form_item.subtitle,
-        gradeLevel: form_item.gradeLevel,
-        topicName: form_item.topicName,
-        isPaid: form_item.isPaid,
-        tags: form_item.tags,
-        publicUrl,
+        worksheetData: [
+          ...data.get("worksheetData"),
+          {
+            title: form_item.title,
+            subtitle: form_item.subtitle,
+            gradeLevel: form_item.gradeLevel,
+            topicName: form_item.topicName,
+            isPaid: form_item.isPaid,
+            tags: form_item.tags,
+            publicUrl,
+          },
+        ],
       });
     }
   };
@@ -152,7 +161,7 @@ export default function NewSheetClient() {
 
       if (idToken) {
         const { data, error } = await supabase.storage.from("images").upload(filePath, file, { upsert: false });
-        console.log("the uploadImage data =>", data);
+        // console.log("the uploadImage data =>", data);
 
         if (error) {
           console.error("Error uploading image:", error);
@@ -162,7 +171,7 @@ export default function NewSheetClient() {
         const { data: dataToGetPublicUrl } = supabase.storage.from("images").getPublicUrl(filePath);
 
         if (dataToGetPublicUrl.publicUrl) {
-          console.log("got public url:", dataToGetPublicUrl.publicUrl);
+          // console.log("got public url:", dataToGetPublicUrl.publicUrl);
 
           await updateWorksheetToFb(dataToGetPublicUrl.publicUrl, form_item);
           // return null;
