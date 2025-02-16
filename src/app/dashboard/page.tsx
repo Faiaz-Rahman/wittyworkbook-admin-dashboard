@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import initials from "initials";
@@ -12,14 +12,18 @@ import { DateRangePicker } from "@/components/date-range-picker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { salesData, overviewChartData } from "@/constants/dummy-data";
+import { overviewChartData } from "@/constants/dummy-data";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { FirebaseUserDataType, getRecentlyJoinedUsers } from "@/utils/serverActions/firebaseMethods";
 
+import { analytics } from "@/utils/firebase";
+import { logEvent } from "firebase/analytics";
+
 export default function Page() {
   const [selectedRange, setSelectedRange] = React.useState<DateRange | undefined>(undefined);
   const { user: userStore } = useSelector((state: RootState) => state.auth);
+  const hasFetchedRecentUserData = useRef<boolean>(false);
 
   const [userFromFb, setUsersFromFb] = useState<Array<FirebaseUserDataType>>([]);
 
@@ -28,12 +32,19 @@ export default function Page() {
 
     if (users.length) {
       setUsersFromFb(users);
+      hasFetchedRecentUserData.current = true;
     }
   };
 
   React.useEffect(() => {
-    getRecentUsers();
-  }, []);
+    if (analytics) {
+      console.log("the analytics =>", analytics);
+      logEvent(analytics, "page_view");
+    }
+    if (!hasFetchedRecentUserData.current) {
+      getRecentUsers();
+    }
+  }, [analytics]);
 
   return (
     <div className="flex-col md:flex">

@@ -60,6 +60,16 @@ export default function LoginForm() {
             isLoggedIn: true,
           }),
         );
+
+        const resp = await fetch("/api/set-claims", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ uid: auth.currentUser.uid }),
+        });
+
+        if (resp.ok) {
+          // console.log("assigned the role authenticated", auth.currentUser);
+        }
       }
 
       router.push("/dashboard");

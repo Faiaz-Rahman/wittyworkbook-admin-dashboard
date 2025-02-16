@@ -55,8 +55,6 @@ export const getRecentlyJoinedUsers = async () => {
   const users: FirebaseUserDataType[] = [];
 
   dataReference.forEach((doc) => {
-    console.log(`${doc.id} => `, doc.data());
-
     if (doc.data()) {
       users.push({
         email: doc.data().email,

@@ -25,37 +25,37 @@ export default function ByGradeSheets() {
           Kindergarten
         </TabsContent>
 
-        <div className="grid grid-cols-6 gap-y-5">
+        <TabsContent value="grade-1" className="grid grid-cols-6 gap-y-5">
           {[1, 2, 3, 4, 5, 6, 7].map((item, ind) => {
             return (
-              <TabsContent value="grade-1" className="">
-                <Card
-                  className="h-[200px] w-[150px] flex items-center 
+              <Card
+                key={`tab_content_grade_1${ind}`}
+                className="h-[200px] w-[150px] flex items-center 
                 hover:cursor-pointer"
-                  onClick={() => {
-                    console.log("@here ... redirect to details page");
-                  }}
-                >
-                  {/* <CardHeader className="bg-red-50">
+                onClick={() => {
+                  console.log("@here ... redirect to details page");
+                }}
+              >
+                {/* <CardHeader className="bg-red-50">
               <CardTitle className="text-sm font-medium"></CardTitle>
             </CardHeader> */}
-                  <CardContent
-                    className="flex items-center 
+                <CardContent
+                  className="flex items-center 
                   justify-center h-full"
-                  >
-                    <Image
-                      height={200}
-                      width={150}
-                      src={`${imageAsssetCollection[0]}`}
-                      alt={"question paper images "}
-                      objectFit="contain"
-                    />
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                >
+                  <Image
+                    height={200}
+                    width={150}
+                    src={`${imageAsssetCollection[0]}`}
+                    alt={"question paper images "}
+                    objectFit="contain"
+                  />
+                </CardContent>
+              </Card>
             );
           })}
-        </div>
+        </TabsContent>
+
         <TabsContent value="grade-2" className="space-y-4">
           Grade-2 sheets
         </TabsContent>
