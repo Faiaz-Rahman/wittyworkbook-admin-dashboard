@@ -73,7 +73,7 @@ const UpdateWorksheet = ({ worksheetData }: { worksheetData: updateWorksheetData
         const imageFile = image[form_ind] as File;
 
         if (imageFile) {
-          //   await uploadImage(imageFile, form_item);
+          await uploadImage(imageFile, form_item);
         }
       }
 
