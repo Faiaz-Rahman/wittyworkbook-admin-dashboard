@@ -14,7 +14,7 @@ import { auth, db } from "@/utils/firebase";
 import { useToast } from "@/hooks/use-toast";
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 
-interface formItemsType {
+export interface formItemsType {
   title: string;
   subtitle: string;
   gradeLevel: string;
