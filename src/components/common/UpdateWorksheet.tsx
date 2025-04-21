@@ -25,7 +25,7 @@ export interface updateWorksheetDataType {
 }
 
 const UpdateWorksheet = ({ worksheetData }: { worksheetData: updateWorksheetDataType }) => {
-  console.log("the data passed is =>", worksheetData);
+  //   console.log("the data passed is =>", worksheetData);
 
   const validationSchema = yup.object().shape({
     formItems: yup.array().of(
@@ -208,6 +208,20 @@ const UpdateWorksheet = ({ worksheetData }: { worksheetData: updateWorksheetData
     }
   };
 
+  React.useEffect(() => {
+    formik.setFieldValue("formItems", [
+      {
+        title: worksheetData.title,
+        subtitle: worksheetData.subtitle,
+        gradeLevel: worksheetData.gradeLevel,
+        topicName: worksheetData.topicName,
+        isPaid: worksheetData.isPaid,
+        imageFormik: worksheetData.imageFormik,
+        tags: worksheetData.tags,
+      },
+    ]);
+  }, [worksheetData]);
+
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -268,7 +282,7 @@ const UpdateWorksheet = ({ worksheetData }: { worksheetData: updateWorksheetData
               ) : null}
             </div>
 
-            {/* 1 Input & Button */}
+            {/* Input & Button */}
             <div>
               <Label htmlFor="tags">Tags</Label>
               <div className="flex gap-2">
@@ -380,10 +394,12 @@ const UpdateWorksheet = ({ worksheetData }: { worksheetData: updateWorksheetData
                 className="border border-gray-200"
               />
               {formik.values.formItems[form_ind].imageFormik && (
-                <p className="text-sm text-green-500">Selected: {formik.values.formItems[form_ind].imageFormik}</p>
+                <p className="text-xs text-green-500 mt-2 text-wrap">
+                  Selected: {formik.values.formItems[form_ind].imageFormik}
+                </p>
               )}
               {(formik.errors?.formItems?.[form_ind] as FormikErrors<formItemsType>)?.imageFormik ? (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-xs text-wrap]">
                   {(formik.errors?.formItems?.[form_ind] as FormikErrors<formItemsType>)?.imageFormik}
                 </p>
               ) : null}
