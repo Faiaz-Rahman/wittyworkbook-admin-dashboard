@@ -18,6 +18,8 @@ import { updateUser } from "@/lib/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { auth } from "@/utils/firebase";
 
+import { toast } from "sonner";
+
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
@@ -71,6 +73,7 @@ export default function LoginForm() {
           // console.log("assigned the role authenticated", auth.currentUser);
         }
       }
+      toast({ description: `Welcome! ${auth?.currentUser?.email}` });
 
       router.push("/dashboard");
       setIsLoading(false);

@@ -48,7 +48,7 @@ export const sidebarItems: NavGroup[] = [
         path: "#",
         icon: StickyNote,
         subItems: [
-          { title: "All Sheets", path: `${basePath}/worksheets/all-sheets` },
+          // { title: "All Sheets", path: `${basePath}/worksheets/all-sheets` },
           { title: "By Grade", path: `${basePath}/worksheets/by-grade` },
           { title: "New Sheet", path: `${basePath}/worksheets/new-sheet` },
           // { title: "", path: `${basePath}/worksheets/` },

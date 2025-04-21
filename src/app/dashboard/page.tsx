@@ -20,7 +20,7 @@ import { FirebaseUserDataType, getRecentlyJoinedUsers } from "@/utils/serverActi
 import { analytics } from "@/utils/firebase";
 import { logEvent } from "firebase/analytics";
 
-export default function Page() {
+export default function Dashboard() {
   const [selectedRange, setSelectedRange] = React.useState<DateRange | undefined>(undefined);
   const { user: userStore } = useSelector((state: RootState) => state.auth);
   const hasFetchedRecentUserData = useRef<boolean>(false);

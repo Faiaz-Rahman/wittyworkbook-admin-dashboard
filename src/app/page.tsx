@@ -8,8 +8,10 @@ import { LoaderCircle } from "lucide-react";
 export default function Home() {
   const router = useRouter();
 
+  React.useEffect(() => {
+    router.push("/auth/login");
+  }, []);
   // redirect("/dashboard");
-  router.push("/auth/login");
   return (
     <div className="h-screen w-full flex items-center justify-center">
       <LoaderCircle className="mr-2 size-4 animate-spin" />
