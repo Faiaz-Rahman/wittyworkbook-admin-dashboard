@@ -28,7 +28,7 @@ export default function ByGradeSheets() {
   return (
     <div className="flex flex-col min-h-screen">
       <Tabs defaultValue="Kindergarten" className="flex flex-col w-full">
-        <TabsList className="grid grid-cols-2 mb-24 sm:flex sm:mb-0 bg-gray-100">
+        <TabsList className="grid grid-cols-2 mb-3 sm:flex bg-gray-100">
           <TabsTrigger
             value="Kindergarten"
             className=""
@@ -162,7 +162,7 @@ export default function ByGradeSheets() {
               </div>
               {loading && (
                 <div className="w-full flex justify-center h-10 items-center">
-                  <LoaderCircle className="mr-2 h-[2rem] w-[2rem] animate-spin" />
+                  <LoaderCircle className="h-[2rem] w-[2rem] animate-spin" />
                 </div>
               )}
 
